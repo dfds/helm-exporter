@@ -1,0 +1,33 @@
+affinity: {}
+fullnameOverride: ""
+image:
+  pullPolicy: Always
+  repository: sstarcher/helm-exporter
+imagePullSecrets: []
+ingress:
+  annotations: {}
+  enabled: false
+  hosts:
+  - host: chart-example.local
+    paths: []
+  tls: []
+nameOverride: ""
+namespaces: ""
+nodeSelector: {}
+podSecurityContext: {}
+replicaCount: 1
+resources: {}
+securityContext: {}
+service:
+  port: 9571
+  type: ClusterIP
+serviceAccount:
+  create: true
+  name: null
+serviceMonitor:
+  additionalLabels: {}
+  create: false
+  interval: null
+  namespace: null
+  scrapeTimeout: null
+tolerations: []
