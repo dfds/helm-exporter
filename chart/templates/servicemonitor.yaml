@@ -13,7 +13,7 @@ metadata:
   {{- end }}
 spec:
   endpoints:
-  - port: {{ .Values.service.port }}
+  - port: http
     honorLabels: true
     {{- with .Values.serviceMonitor.interval }}
     interval: {{ . }}
@@ -26,6 +26,6 @@ spec:
     - {{ .Release.Namespace }}
   selector:
     matchLabels:
-      {{- include "helm-exporter.selectorLabels" . | nindent 4 }}
+      {{- include "helm-exporter.selectorLabels" . | nindent 6 }}
 
 {{- end }}
