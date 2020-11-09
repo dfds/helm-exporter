@@ -1,0 +1,52 @@
+name: $(Build.BuildId)
+
+# Triggers Pipeline only on Master
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    exclude:
+    - README.md
+    - LICENSE
+
+# Disables triggering Pipeline run at creation of every Pull Request
+pr: none
+
+# Global variables for the pipeline
+variables:
+- name: 'vmImage'
+  value: 'ubuntu-latest'
+- name: 'k8s-service-connection'
+  value: 'Kubernetes-Hellman-ops-deploy'
+- name: 'kubernetes-namespace'
+  value: 'monitoring'
+
+stages:
+- stage: CD
+  displayName: 'Continuous Deployment'
+  jobs:
+  - job: Deploy
+    pool: 
+      vmImage: $(vmImage)
+
+    steps:
+    - checkout: self
+    
+    - task: HelmInstaller@1
+      displayName: Helm installer
+      inputs: 
+        helmVersionToInstall: latest
+
+    - task: HelmDeploy@0
+      displayName: "Deploy 'chart' directory via Helm"
+      inputs:
+        connectionType: Kubernetes Service Connection
+        kubernetesServiceEndpoint: 'k8s-service-connection'
+        command: upgrade
+        chartType: FilePath
+        chartPath: ./chart
+        install: true
+        valueFile: values.yaml
+        namespace: $(kubernetes-namespace)
+        chartName: helm-exporter-3
