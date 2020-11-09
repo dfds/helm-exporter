@@ -42,7 +42,7 @@ stages:
       displayName: "Deploy 'chart' directory via Helm"
       inputs:
         connectionType: Kubernetes Service Connection
-        kubernetesServiceEndpoint: 'k8s-service-connection'
+        kubernetesServiceEndpoint: $(k8s-service-connection)
         command: upgrade
         chartType: FilePath
         chartPath: ./chart
