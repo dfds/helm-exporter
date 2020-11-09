@@ -1,3 +1,11 @@
 service:
   labels:
     scrape-service-metrics: "true"
+config:
+  helmRegistries:
+    override:
+      - registry:
+          url: "https://prometheus-community.github.io/helm-charts/index.yaml"
+        charts:
+          - helm-exporter-3
+          - kube-prometheus-stack
