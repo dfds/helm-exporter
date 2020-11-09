@@ -50,3 +50,4 @@ stages:
         valueFile: values.yaml
         namespace: $(kubernetes-namespace)
         chartName: helm-exporter-3
+        releaseName: helm-exporter-3
